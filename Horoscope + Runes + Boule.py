@@ -14,6 +14,8 @@ PATH = "C:\Program Files (x86)\chromedriver.exe"
 driver = webdriver.Chrome(PATH, options = options)
 driver.quit()
 
+###### 1. création du jeu horoscope ######
+
 def horoscope() :
         
     driver = webdriver.Chrome(PATH, options = options)
@@ -21,7 +23,9 @@ def horoscope() :
     bd = (input("Veillez renseigner en chiffre votre jour de naissance: "))         
     bmbd = bm + bd
     bmbd = int(bmbd)
-               
+ 
+# On pourrait import time mais bon... j'ai fait comme ça
+              
     if (bmbd > 121) and (bmbd <= 219) :
         print("Vous êtes Verseau !")
         driver.get("https://www.horoscope.fr/horoscopes/horoscope_verseau.html")
@@ -73,46 +77,43 @@ def horoscope() :
             
     driver.maximize_window()
     time.sleep(3)
-        
+    # définition des différents "endroits" pour éviter de mettre des xpath des des scroll down partout 
+    
     try :
-        driver.find_element_by_xpath('/html/body/div[3]/div/button').click() # on enlève le pop-up cookie (une deuxième fois)
-        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # on enlève le gros pop-up bizarre (une deuxième fois)
+        driver.find_element_by_xpath('/html/body/div[3]/div/button').click() # on enlève le pop-up cookie
+        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # on enlève le gros pop-up bizarre
     except :
         pass
-        
+    
+            # on se place sur la partie qui compose les predictions sur l'amour
     def section_amour() :
         driver.find_element_by_xpath('/html/body/div[2]/div[2]/div/div[1]/div[1]/div[3]/span[1]').click()
-                
-        
+                        
             # on se place sur la partie qui compose les predictions sur le travail  
     def section_travail() :
         driver.find_element_by_xpath('/html/body/div[2]/div[2]/div/div[1]/div[1]/div[3]/span[2]').click()
-        
-                 
+                         
             # on se place sur la partie qui compose les predictions sur la finance    
     def section_finance() :
         driver.find_element_by_xpath('/html/body/div[2]/div[2]/div/div[1]/div[1]/div[3]/span[3]').click() 
-             
-                 
+                             
             # on se place sur la partie qui compose les predictions sur le bien être
     def section_bien_être() :
         driver.find_element_by_xpath('/html/body/div[2]/div[2]/div/div[1]/div[1]/div[3]/span[4]').click()
-        
-        
+                
             # on se place sur la partie qui compose les predictions sur l'entourage
     def section_entourage() :
         driver.find_element_by_xpath('/html/body/div[2]/div[2]/div/div[1]/div[1]/div[3]/span[5]').click()
              
-        # on se place sur la partie qui compose les predictions sur l'amour
         
     try :
-        driver.find_element_by_xpath('/html/body/div[3]/div/button').click() # on enlève le pop-up cookie (une deuxième fois)
-        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # on enlève le gros pop-up bizarre (une deuxième fois)
+        driver.find_element_by_xpath('/html/body/div[3]/div/button').click() # on enlève le pop-up cookie 
+        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # on enlève le gros pop-up bizarre 
     except :
         pass
         
             
-        # les "petites" predictions qui se composent seulement d'une note sur 6 (fait avec des emojis)    
+# les "petites" predictions qui se composent seulement d'une note sur 6 (fait avec des emojis)    
         
         
             # Amour   
@@ -158,7 +159,7 @@ def horoscope() :
     except :
         pass
             
-    # là on demande si la personne veut le détails de la prédiction (avec des phrases)
+    # là on demande si la personne veut le détails de la prédiction (avec des phrases qu'on va prendre sur le site)
     def détails_predictions() :    
         
         choix_prediction = (input("Voulez vous en savoir plus sur : \n1. Amour \n2. Travail\n3. Finance\n4. Bien-être \n5. Entourage \n6. Sexe \n7. Rien\n\n Votre réponse : ")).lower()
@@ -172,7 +173,7 @@ def horoscope() :
         if choix_prediction == "amour" :
             driver.find_element_by_xpath('/html/body/div[2]/div[2]/div/div[1]/div[1]/div[3]/span[1]').click()
             print("\n" + driver.find_element_by_xpath('//*[@id="part_0"]/div[3]/p').text)      
-            retry()  
+            retry()   # une simple fonction qui nous demande si on veut continuer à connaitre les predictions ou si on veut partir
             
         if choix_prediction == "sexe" :
             driver.find_element_by_xpath('/html/body/div[2]/div[2]/div/div[1]/div[1]/div[3]/span[1]').click()
@@ -206,11 +207,12 @@ def horoscope() :
             
         if choix_prediction == "rien" : 
             driver.quit()
-            
+        
+            # pour cette condition il doit FORCEMENT exister une méthode plus efficiente comme créer une liste mais sur le coup j'avais fait ça
         if  ((choix_prediction != "amour") is True) and ((choix_prediction != "sexe") is True) and ((choix_prediction != "travail") is True) and ((choix_prediction != "finance") is True) and ((choix_prediction != "bien_être") is True) and ((choix_prediction != "entourage") is True) and ((choix_prediction != "rien")is True) :
             print("\nVeillez réécrire votre réponse")
             détails_predictions()
-            
+    # cette fonction est greffée plus haut       
     def retry():
         continuer = (input("Voulez vous en savoir plus les autres prédictions ?' : \n1. Oui \n2. Non \nVotre réponse : ")).lower()
         
@@ -229,7 +231,7 @@ def horoscope() :
   
     
  
-
+##### 2. Notre deuxième jeu qui consiste à tirer 3 runes et savoir ce qu'elles veulent dire #####
 def jeu_de_rune() : 
     driver = webdriver.Chrome(PATH, options = options)
     repn = input("Voulez-vous faire un jeu de tirage des runes ? \n a. Oui \n b. Non \n Votre réponse: ")
@@ -242,25 +244,20 @@ def jeu_de_rune() :
         time.sleep(1)
         driver.find_element_by_xpath('/html/body/main/div/section[1]/div[1]/div[2]/div[2]/div/div/div[2]/img').click()
         time.sleep(1)
-        driver.find_element_by_xpath('/html/body/main/div/section[1]/div[1]/div[2]/div[1]/button').click()
-       
-          
+        driver.find_element_by_xpath('/html/body/main/div/section[1]/div[1]/div[2]/div[1]/button').click()                
         
     if repn=='b' or repn == "non":
         print("Dommage!")
     
     
     try:
-        prem = driver.find_element_by_xpath('/html/body/main/div/section[1]/div[2]/article[1]/div[2]/h3')
-        
+        prem = driver.find_element_by_xpath('/html/body/main/div/section[1]/div[2]/article[1]/div[2]/h3')       
         exp1 = driver.find_element_by_xpath('/html/body/main/div/section[1]/div[2]/article[1]/div[2]/p[1]/strong')
         
-        deux = driver.find_element_by_xpath('/html/body/main/div/section[1]/div[2]/article[2]/div[2]/h3')
-        
+        deux = driver.find_element_by_xpath('/html/body/main/div/section[1]/div[2]/article[2]/div[2]/h3')        
         exp2 = driver.find_element_by_xpath('/html/body/main/div/section[1]/div[2]/article[2]/div[2]/p[1]/strong')
         
-        tr = driver.find_element_by_xpath('/html/body/main/div/section[1]/div[2]/article[3]/div[2]/h3')
-        
+        tr = driver.find_element_by_xpath('/html/body/main/div/section[1]/div[2]/article[3]/div[2]/h3')       
         exp3 = driver.find_element_by_xpath('/html/body/main/div/section[1]/div[2]/article[3]/div[2]/p[1]/strong')
      
         
@@ -268,19 +265,19 @@ def jeu_de_rune() :
         print("bug")
         driver.quit()
         
-    ##### première rune 
+    # première rune 
     time.sleep(5)
     print("\n" +prem.text) 
     print(exp1.text)
     time.sleep(2)
     
-    ###### deuxième rune
+    # deuxième rune
     driver.execute_script("window.scrollTo(0, 900)") 
     print("\n" + deux.text)
     print(exp2.text)
     time.sleep(2)
     
-    ##### trousième rune
+    # trousième rune
     print("\n" + tr.text)
     print(exp3.text)
     time.sleep(2)                 
@@ -290,6 +287,7 @@ def jeu_de_rune() :
 
 
 
+##### 3. troisième et dernier jeu, une boule de crystal. On peut soit lui poser une question, soit lui demander notre futur, soit nos "amours" #####
 
 def boule_de_crystal() : 
     driver = webdriver.Chrome(PATH, options = options)   
@@ -303,7 +301,7 @@ def boule_de_crystal() :
     if rep=="c" or rep == "amour" :
         driver.get('https://www.bouledecristalgratuite.com/amour')   
 
-    ######## On cherche les réponses 
+    # On cherche les réponses 
     
     
     try:
@@ -340,7 +338,9 @@ def boule_de_crystal() :
             EC.presence_of_element_located((By.XPATH,'/html/body/div[3]/div[1]/div[2]/div/div/span'))
             )
             print(elem.text)
-            
+
+
+###### c'est notre "menu principal" ou on choisis à quoi on veut jouer ou si on veut quitter ######          
 def galaxy() :    
     étoile = input('Voulez-vous \n a. Consulter votre horoscope \n b. Tirer les runes  \n c. Regardez dans la boule de crystal \n d. Quitter \n Réponse: ').lower()
     if étoile == "a" or "horoscope ":
