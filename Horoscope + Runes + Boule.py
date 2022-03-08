@@ -343,18 +343,45 @@ def boule_de_crystal() :
 ###### c'est notre "menu principal" ou on choisis à quoi on veut jouer ou si on veut quitter ######          
 def galaxy() :    
     étoile = input('Voulez-vous \n a. Consulter votre horoscope \n b. Tirer les runes  \n c. Regardez dans la boule de crystal \n d. Quitter \n Réponse: ').lower()
-    if étoile == "a" or "horoscope ":
+    time.sleep(1)
+    if étoile == "a" or étoile == "horoscope":
+        print("horo")
         horoscope()
         galaxy()
-    if étoile == "b" or "runes" or "rune":
+    if étoile == "b" or étoile == "runes"  or étoile =="rune" :
         jeu_de_rune()
         galaxy()
-    if étoile=="c" or "boule":
+    if étoile=="c" or étoile == "boule":
         boule_de_crystal()
         galaxy()
-    if étoile == "d" or "quitter" :
+    if étoile == "d" or étoile == "quitter":
         driver.quit()
     else:
-        print("bug")     
+        print("au revoir")
+        
 
-galaxy()
+étoile = input('Voulez-vous \n a. Consulter votre horoscope \n b. Tirer les runes  \n c. Regardez dans la boule de crystal \n d. Quitter \n Réponse: ').lower()
+time.sleep(1)
+if étoile == "a" or étoile == "horoscope":
+    print("horo")
+    horoscope()
+    galaxy()
+if étoile == "b" or étoile == "runes"  or étoile =="rune" :
+    jeu_de_rune()
+    galaxy()
+if étoile=="c" or étoile == "boule":
+    boule_de_crystal()
+    galaxy()
+if étoile == "d" or étoile == "quitter":
+    driver.quit()
+else:
+    print("Au revoir")
+
+
+
+
+
+
+
+
+
