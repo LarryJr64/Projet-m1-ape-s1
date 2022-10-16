@@ -9,7 +9,6 @@ options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2}
 options.add_experimental_option("prefs",prefs)
 options.add_experimental_option("detach", True)
-#driver = webdriver.Chrome(options=options, executable_path='C:\Program Files (x86)\chromedriver.exe')
 PATH = "C:\Program Files (x86)\chromedriver.exe"
 driver = webdriver.Chrome(PATH, options = options)
 driver.quit()
@@ -24,7 +23,6 @@ def horoscope() :
     bmbd = bm + bd
     bmbd = int(bmbd)
  
-# On pourrait import time mais bon... j'ai fait comme ça
               
     if (bmbd > 121) and (bmbd <= 219) :
         print("Vous êtes Verseau !")
@@ -77,11 +75,11 @@ def horoscope() :
             
     driver.maximize_window()
     time.sleep(3)
-    # définition des différents "endroits" pour éviter de mettre des xpath des des scroll down partout 
     
+# Ce try sinon pass sera présent avant chaque action dû à une apparition trop random des pop-up
     try :
-        driver.find_element_by_xpath('/html/body/div[3]/div/button').click() # on enlève le pop-up cookie
-        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # on enlève le gros pop-up bizarre
+        driver.find_element_by_xpath('/html/body/div[3]/div/button').click() # suppression du pop-up cookie
+        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # suppression du gros pop-up publicitaire
     except :
         pass
     
@@ -107,13 +105,13 @@ def horoscope() :
              
         
     try :
-        driver.find_element_by_xpath('/html/body/div[3]/div/button').click() # on enlève le pop-up cookie 
-        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # on enlève le gros pop-up bizarre 
+        driver.find_element_by_xpath('/html/body/div[3]/div/button').click()
+        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click()
     except :
         pass
         
             
-# les "petites" predictions qui se composent seulement d'une note sur 6 (fait avec des emojis)    
+# les "petites" predictions de votre destin qui se composent seulement d'une note allant de 1 à 6 (fait avec des emojis)    
         
         
             # Amour   
@@ -141,8 +139,8 @@ def horoscope() :
     nbr_bienêtre_emoji = nbr_bienêtre * "🔥"
             
     try :
-        driver.find_element_by_xpath('//*[@id="axeptio_btn_dismiss"]').click() # on enlève le pop-up cookie
-        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # on enlève le gros pop-up bizarre
+        driver.find_element_by_xpath('//*[@id="axeptio_btn_dismiss"]').click() 
+        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() 
     except :
         pass
             
@@ -155,18 +153,19 @@ def horoscope() :
     print("\n Voici nos prédictions sur votre journée : \n Amour : " + nbr_amour_emoji + "\n Travail : " + nbr_travail_emoji + "\n Finance : " + nbr_finance_emoji + "\n Bien-être : " + nbr_bienêtre_emoji + "\n Entourage : " + nbr_entourage_emoji)
             
     try :       
-        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # on enlève le gros pop-up bizarre
+        driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click()
     except :
         pass
             
-    # là on demande si la personne veut le détails de la prédiction (avec des phrases qu'on va prendre sur le site)
+    # Prediction plus appronfondie 
+
     def détails_predictions() :    
         
         choix_prediction = (input("Voulez vous en savoir plus sur : \n1. Amour \n2. Travail\n3. Finance\n4. Bien-être \n5. Entourage \n6. Sexe \n7. Rien\n\n Votre réponse : ")).lower()
         
         try :
-            driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # on enlève le gros pop-up bizarre
-            détails_predictions() # je relance la fonction sinon ça fait bug
+            driver.find_element_by_xpath('/html/body/div[4]/div/div[1]').click() # suppression du pop-pup
+            détails_predictions() # relance de la fonction car le pop-up fait bug
         except :
             pass
         
@@ -212,7 +211,9 @@ def horoscope() :
         if  ((choix_prediction != "amour") is True) and ((choix_prediction != "sexe") is True) and ((choix_prediction != "travail") is True) and ((choix_prediction != "finance") is True) and ((choix_prediction != "bien_être") is True) and ((choix_prediction != "entourage") is True) and ((choix_prediction != "rien")is True) :
             print("\nVeillez réécrire votre réponse")
             détails_predictions()
-    # cette fonction est greffée plus haut       
+                
+    # cette fonction est greffée plus haut     
+
     def retry():
         continuer = (input("Voulez vous en savoir plus les autres prédictions ?' : \n1. Oui \n2. Non \nVotre réponse : ")).lower()
         
@@ -232,6 +233,7 @@ def horoscope() :
     
  
 ##### 2. Notre deuxième jeu qui consiste à tirer 3 runes et savoir ce qu'elles veulent dire #####
+
 def jeu_de_rune() : 
     driver = webdriver.Chrome(PATH, options = options)
     repn = input("Voulez-vous faire un jeu de tirage des runes ? \n a. Oui \n b. Non \n Votre réponse: ")
@@ -282,10 +284,6 @@ def jeu_de_rune() :
     print(exp3.text)
     time.sleep(2)                 
       
-
-
-
-
 
 ##### 3. troisième et dernier jeu, une boule de crystal. On peut soit lui poser une question, soit lui demander notre futur, soit nos "amours" #####
 
@@ -340,7 +338,8 @@ def boule_de_crystal() :
             print(elem.text)
 
 
-###### c'est notre "menu principal" ou on choisis à quoi on veut jouer ou si on veut quitter ######          
+###### c'est notre "menu principal" ou on choisis à quoi on veut jouer ou si on veut quitter ######   
+
 def galaxy() :    
     étoile = input('Voulez-vous \n a. Consulter votre horoscope \n b. Tirer les runes  \n c. Regardez dans la boule de crystal \n d. Quitter \n Réponse: ').lower()
     time.sleep(1)
