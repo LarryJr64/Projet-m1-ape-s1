@@ -55,8 +55,8 @@ Cette partie nous permet de tirer au sort 3 runes et d'avoir une interprétation
 
 ## Auteurs
 
-Claude Roussaux
-Mariam Harutyunyan
+- Claude Roussaux
+- Mariam Harutyunyan
 
 M1 - APE - Data Science pour l'économie et l'entreprise du futur.
 Faculté des Sciences Economiques et de la Gestion, Université de Strasbourg
