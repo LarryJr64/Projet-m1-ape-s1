@@ -1,4 +1,6 @@
-# Projet-m1-ape-s1    (`･Д･)ノ=☆
+# Horoscope magique 
+
+# (`･Д･)ノ=☆
 
 ## Table de Matières 
 1. Introduction
